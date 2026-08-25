@@ -268,6 +268,14 @@ document.getElementById('inputMinute').addEventListener('change', function(){
 });
 
 // ─── Init ─────────────────────────────────────────────────
+
+// اگه تایمری با targetMs نامعتبر داشتیم (باگ قدیمی) پاکشون کن
+timers = timers.filter(t => {
+  const d = new Date(t.targetMs);
+  return d instanceof Date && !isNaN(d) && d.getFullYear() > 1900 && d.getFullYear() < 2200;
+});
+saveTimers();
+
 const t = PersianCal.today();
 pickerState = { year: t.y, month: t.m, day: t.d };
 renderTimers();
