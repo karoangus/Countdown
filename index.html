@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CountDown — شمارنده معکوس</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">⏳</span>
+        <span class="logo-text">CountDown</span>
+      </div>
+      <button class="btn-add" id="btnOpenModal">
+        <span>+</span> تایمر جدید
+      </button>
+    </div>
+  </header>
+
+  <!-- Empty State -->
+  <div class="empty-state" id="emptyState">
+    <div class="empty-icon">🚀</div>
+    <h2>هنوز تایمری نداری!</h2>
+    <p>با دکمه «تایمر جدید» اولین شمارش معکوست رو بساز</p>
+    <button class="btn-add" onclick="document.getElementById('btnOpenModal').click()">+ تایمر جدید</button>
+  </div>
+
+  <!-- Timers Grid -->
+  <main class="timers-grid" id="timersGrid"></main>
+
+  <!-- Modal Overlay -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">تایمر جدید</h2>
+        <button class="modal-close" id="btnCloseModal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Title -->
+        <div class="field-group">
+          <label>عنوان رویداد</label>
+          <input type="text" id="inputTitle" placeholder="مثلاً: عید نوروز ۱۴۰۵" maxlength="60" />
+        </div>
+
+        <!-- Emoji -->
+        <div class="field-group">
+          <label>آیکون (ایموجی)</label>
+          <input type="text" id="inputEmoji" placeholder="🎉" maxlength="4" />
+        </div>
+
+        <!-- Color -->
+        <div class="field-group">
+          <label>رنگ تایمر</label>
+          <div class="color-swatches" id="colorSwatches">
+            <div class="swatch selected" data-color="#7c3aed" style="background:#7c3aed"></div>
+            <div class="swatch" data-color="#2563eb" style="background:#2563eb"></div>
+            <div class="swatch" data-color="#059669" style="background:#059669"></div>
+            <div class="swatch" data-color="#dc2626" style="background:#dc2626"></div>
+            <div class="swatch" data-color="#d97706" style="background:#d97706"></div>
+            <div class="swatch" data-color="#db2777" style="background:#db2777"></div>
+            <div class="swatch" data-color="#0891b2" style="background:#0891b2"></div>
+            <div class="swatch" data-color="#65a30d" style="background:#65a30d"></div>
+          </div>
+        </div>
+
+        <!-- Persian Date Picker -->
+        <div class="field-group">
+          <label>تاریخ شمسی</label>
+          <div class="persian-date-picker" id="persianDatePicker">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Time -->
+        <div class="field-group">
+          <label>ساعت و دقیقه</label>
+          <div class="time-row">
+            <div class="time-field">
+              <label class="sub-label">ساعت</label>
+              <input type="number" id="inputHour" min="0" max="23" value="0" />
+            </div>
+            <div class="time-sep">:</div>
+            <div class="time-field">
+              <label class="sub-label">دقیقه</label>
+              <input type="number" id="inputMinute" min="0" max="59" value="0" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-cancel" id="btnCancelModal">انصراف</button>
+        <button class="btn-save" id="btnSaveTimer">ذخیره تایمر</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="persian-cal.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="110" fill="#0d0f1a"/>
+  <circle cx="256" cy="272" r="160" fill="none" stroke="#7c3aed" stroke-width="28"/>
+  <circle cx="256" cy="272" r="140" fill="#161929"/>
+  <!-- clock hand -->
+  <line x1="256" y1="272" x2="256" y2="155" stroke="#a78bfa" stroke-width="18" stroke-linecap="round"/>
+  <line x1="256" y1="272" x2="320" y2="310" stroke="#60a5fa" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="256" cy="272" r="12" fill="#7c3aed"/>
+  <!-- top bell shape -->
+  <rect x="218" y="100" width="76" height="20" rx="10" fill="#7c3aed"/>
+  <rect x="240" y="82" width="32" height="22" rx="8" fill="#a78bfa"/>
+</svg>

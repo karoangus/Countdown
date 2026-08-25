@@ -1,0 +1,19 @@
+{
+  "name": "CountDown — شمارنده معکوس",
+  "short_name": "CountDown",
+  "description": "شمارنده معکوس فارسی با تقویم شمسی",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0d0f1a",
+  "theme_color": "#7c3aed",
+  "lang": "fa",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
