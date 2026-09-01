@@ -4,7 +4,18 @@
  */
 
 // ─── State ───────────────────────────────────────────────
-let timers = JSON.parse(localStorage.getItem('cd_timers') || '[]');
+// Keep localStorage failures from preventing the app from loading (for example,
+// after a manually edited or partially written value).
+function loadTimers() {
+  try {
+    const value = JSON.parse(localStorage.getItem('cd_timers') || '[]');
+    return Array.isArray(value) ? value : [];
+  } catch {
+    return [];
+  }
+}
+
+let timers = loadTimers();
 let editingId = null;
 let selectedColor = '#7c3aed';
 let pickerState = {}; // {year, month} currently viewing in calendar
@@ -15,6 +26,17 @@ function toFaNum(n) {
   return String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
 }
 function pad(n) { return String(n).padStart(2,'0'); }
+
+// Timer titles and emoji are user input. Escape them before inserting cards as
+// HTML so a saved value can never turn into executable markup.
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[char]));
+}
+
+const TIMER_COLORS = new Set(['#7c3aed', '#2563eb', '#059669', '#dc2626', '#d97706', '#db2777', '#0891b2', '#65a30d']);
+function safeColor(color) { return TIMER_COLORS.has(color) ? color : '#7c3aed'; }
 function genId() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
 function saveTimers() { localStorage.setItem('cd_timers', JSON.stringify(timers)); }
 
@@ -56,16 +78,17 @@ function timerCard(t) {
   const dateStr = `${toFaNum(jd.y)}/${toFaNum(pad(jd.m))}/${toFaNum(pad(jd.d))}`;
   const timeStr = `${toFaNum(pad(new Date(t.targetMs).getHours()))}:${toFaNum(pad(new Date(t.targetMs).getMinutes()))}`;
 
+  const color = safeColor(t.color);
   return `
-  <div class="timer-card ${expired?'expired':''}" id="card-${t.id}" style="--accent:${t.color}">
+  <div class="timer-card ${expired?'expired':''}" id="card-${escapeHTML(t.id)}" style="--accent:${color}">
     <div class="card-top">
-      <span class="card-emoji">${t.emoji || '⏳'}</span>
+      <span class="card-emoji" role="img" aria-label="آیکون تایمر">${escapeHTML(t.emoji || '⏳')}</span>
       <div class="card-actions">
         <button class="card-btn" onclick="openEdit('${t.id}')" title="ویرایش">✏️</button>
         <button class="card-btn" onclick="deleteTimer('${t.id}')" title="حذف">🗑️</button>
       </div>
     </div>
-    <h3 class="card-title">${t.title}</h3>
+    <h3 class="card-title">${escapeHTML(t.title)}</h3>
     <div class="card-date">${dateStr} — ${timeStr}</div>
     ${expired
       ? `<div class="card-expired">🎉 وقتش رسید!</div>`
@@ -258,6 +281,11 @@ document.getElementById('btnSaveTimer').addEventListener('click', saveTimer);
 document.getElementById('modalOverlay').addEventListener('click', e => {
   if (e.target === document.getElementById('modalOverlay')) closeModal();
 });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('modalOverlay').classList.contains('open')) {
+    closeModal();
+  }
+});
 
 // clamp hour/minute inputs
 document.getElementById('inputHour').addEventListener('change', function(){
@@ -272,8 +300,14 @@ document.getElementById('inputMinute').addEventListener('change', function(){
 // اگه تایمری با targetMs نامعتبر داشتیم (باگ قدیمی) پاکشون کن
 timers = timers.filter(t => {
   const d = new Date(t.targetMs);
-  return d instanceof Date && !isNaN(d) && d.getFullYear() > 1900 && d.getFullYear() < 2200;
-});
+  return t && typeof t === 'object' && typeof t.id === 'string' && /^[a-z0-9]+$/.test(t.id)
+    && typeof t.title === 'string' && t.title.trim().length > 0
+    && d instanceof Date && !isNaN(d) && d.getFullYear() > 1900 && d.getFullYear() < 2200;
+}).map(t => ({
+  ...t,
+  color: safeColor(t.color),
+  emoji: typeof t.emoji === 'string' ? t.emoji.slice(0, 4) : '⏳'
+}));
 saveTimers();
 
 const t = PersianCal.today();
