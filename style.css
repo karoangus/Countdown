@@ -150,6 +150,11 @@ body {
   transition: background .15s;
 }
 .card-btn:hover { background: var(--border); }
+.card-btn:disabled {
+  opacity: .35;
+  cursor: default;
+  pointer-events: none;
+}
 
 .card-title {
   font-size: 1.15rem;
