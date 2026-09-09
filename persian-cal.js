@@ -1,6 +1,11 @@
 /**
  * Persian (Jalali) Calendar Utility
- * Algorithm: jalaali-js (MIT) — industry standard, battle-tested
+ * Algorithm: jalaali-js (MIT) — industry standard, battle-tested,
+ * plus a one-year correction so Esfand matches the official calendar:
+ * 1403 was a leap year (Esfand 30 days) and 1404 is not (Esfand 29 days),
+ * while the pure 2820-year arithmetic cycle predicts the opposite.
+ * Every date in year 1404 therefore sits exactly one day later than the
+ * arithmetic mapping, which is what the 1404 branches below compensate.
  */
 
 const PersianCal = (() => {
@@ -63,14 +68,26 @@ const PersianCal = (() => {
   }
 
   function toJalali(gy, gm, gd) {
-    return julianToJalali(gregorianToJulian(gy, gm, gd));
+    const j = julianToJalali(gregorianToJulian(gy, gm, gd));
+    if (j.y === 1404) {
+      // Official 1404 runs one day behind the arithmetic mapping:
+      // shift back one Jalali day (borrows into 1403/12/30 at the boundary).
+      if (j.d > 1) return { y: j.y, m: j.m, d: j.d - 1 };
+      if (j.m > 1) return { y: j.y, m: j.m - 1, d: daysInMonth(j.y, j.m - 1) };
+      return { y: 1403, m: 12, d: 30 };
+    }
+    return j;
   }
 
   function toGregorian(jy, jm, jd) {
-    return julianToGregorian(jalaliToJulian(jy, jm, jd));
+    // Official 1404 runs one day ahead of the arithmetic mapping.
+    const shift = jy === 1404 ? 1 : 0;
+    return julianToGregorian(jalaliToJulian(jy, jm, jd) + shift);
   }
 
   function leapJ(jy) {
+    if (jy === 1403) return true;   // official: Esfand 1403 had 30 days
+    if (jy === 1404) return false;  // official: Esfand 1404 has 29 days
     return jalaliToJulian(jy + 1, 1, 1) - jalaliToJulian(jy, 1, 1) === 366;
   }
 
