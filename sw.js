@@ -3,7 +3,7 @@
  * Caches all assets for 100% offline use
  */
 
-const CACHE = 'countdown-v3';
+const CACHE = 'countdown-v4';
 const ASSETS = [
   './',
   './index.html',

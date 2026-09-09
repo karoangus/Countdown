@@ -68,6 +68,9 @@ function renderTimers() {
 }
 
 function timerCard(t) {
+  const idx = timers.findIndex(x => x.id === t.id);
+  const isFirst = idx <= 0;
+  const isLast = idx === -1 || idx === timers.length - 1;
   const diff = calcDiff(t.targetMs);
   const expired = !diff;
   const jd = PersianCal.toJalali(
@@ -84,6 +87,8 @@ function timerCard(t) {
     <div class="card-top">
       <span class="card-emoji" role="img" aria-label="آیکون تایمر">${escapeHTML(t.emoji || '⏳')}</span>
       <div class="card-actions">
+        <button class="card-btn" onclick="moveTimer('${t.id}',-1)" title="انتقال به بالا" ${isFirst ? 'disabled' : ''}>⬆️</button>
+        <button class="card-btn" onclick="moveTimer('${t.id}',1)" title="انتقال به پایین" ${isLast ? 'disabled' : ''}>⬇️</button>
         <button class="card-btn" onclick="openEdit('${t.id}')" title="ویرایش">✏️</button>
         <button class="card-btn" onclick="deleteTimer('${t.id}')" title="حذف">🗑️</button>
       </div>
@@ -173,6 +178,16 @@ function openEdit(id) {
 function deleteTimer(id) {
   if (!confirm('این تایمر حذف بشه؟')) return;
   timers = timers.filter(t => t.id !== id);
+  saveTimers();
+  renderTimers();
+}
+
+// ─── Reorder timers ───────────────────────────────────────
+function moveTimer(id, dir) {
+  const idx = timers.findIndex(t => t.id === id);
+  const swapWith = idx + dir;
+  if (idx === -1 || swapWith < 0 || swapWith >= timers.length) return;
+  [timers[idx], timers[swapWith]] = [timers[swapWith], timers[idx]];
   saveTimers();
   renderTimers();
 }
