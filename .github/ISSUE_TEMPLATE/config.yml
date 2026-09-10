@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "📖 Documentation (README)"
+    url: "https://github.com/karoangus/Countdown#readme"
+    about: "Quick start, PWA install steps, feature list, and technical details — راهنمای راه‌اندازی و نصب"
+  - name: "🌐 Live demo"
+    url: "https://karoangus.github.io/Countdown/"
+    about: "Try the latest version of the app before reporting an issue"

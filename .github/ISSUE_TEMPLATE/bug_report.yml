@@ -1,0 +1,99 @@
+name: "🐛 Bug Report"
+description: "Something doesn't work the way it should — گزارش یک ایراد در برنامه"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! 🙏
+        Please fill in the details below — the more precise you are, the faster it can be fixed.
+
+        💡 می‌توانید پاسخ‌ها را به **فارسی یا انگلیسی** بنویسید، هر کدام که راحت‌تر است.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: "What happened?"
+      description: "A short, clear summary of the problem. If you see an error message, include it here."
+      placeholder: |
+        Example: When I create a new timer for 1 Farvardin 1406, the countdown shows a wrong number of days.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: "Steps to reproduce"
+      description: "What exactly did you do before the problem appeared? Numbered steps work best."
+      placeholder: |
+        1. Open the app
+        2. Click "تایمر جدید"
+        3. Pick the date …
+        4. Click "ذخیره تایمر"
+        5. See the wrong countdown on the card
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: "Expected behavior"
+      description: "What did you expect to happen instead?"
+      placeholder: "Example: The countdown should show the correct number of days until the event."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: "Actual behavior"
+      description: "What actually happened? Include anything unexpected, even if it seems unrelated."
+      placeholder: "Example: The card shows 364 days, but the real difference is 200 days."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: where-running
+    attributes:
+      label: "Where are you using the app?"
+      description: "This project has no version numbers, so this helps pin down what code you are running."
+      options:
+        - "GitHub Pages live demo (karoangus.github.io/Countdown)"
+        - "Installed as an app (PWA) on my phone or desktop"
+        - "Served locally (e.g. python3 -m http.server)"
+        - "Opened index.html directly from my computer"
+        - "Somewhere else / not sure"
+    validations:
+      required: true
+
+  - type: textarea
+    id: device-browser
+    attributes:
+      label: "Device, operating system & browser"
+      description: "Bugs can be browser-specific, so this matters. Example: 'iPhone 13, iOS 17, Safari' or 'Windows 11, Chrome 126'."
+      placeholder: "e.g. Samsung Galaxy S23, Android 14, Firefox Mobile 128"
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots or a screen recording"
+      description: |
+        Very helpful for anything visual! You can attach images by dragging & dropping them into this box.
+      placeholder: "Drag and drop screenshots or a short video here (optional)."
+    validations:
+      required: false
+
+  - type: textarea
+    id: anything-else
+    attributes:
+      label: "Anything else?"
+      description: |
+        Optional details that often help:
+        • Any red errors in the browser console? (F12 → Console)
+        • Does a hard refresh (Ctrl+Shift+R) or clearing the site's browser data change anything? The app caches itself offline, so an old cached copy is a common culprit.
+        • What you typed or selected when the bug happened.
+      placeholder: "Anything else that might be useful (optional)."
+    validations:
+      required: false

@@ -1,0 +1,53 @@
+name: "✨ Feature Request"
+description: "Suggest an idea or an improvement — پیشنهاد یک قابلیت جدید"
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping make CountDown better! 🎉
+        Keep in mind this app is intentionally tiny: **no backend, no accounts, no internet connection required**.
+        Ideas that fit that spirit are the easiest to accept — but suggest anything, and let's talk.
+
+        💡 می‌توانید پاسخ‌ها را به **فارسی یا انگلیسی** بنویسید، هر کدام که راحت‌تر است.
+
+  - type: textarea
+    id: the-feature
+    attributes:
+      label: "What would you like to be able to do?"
+      description: "Describe the feature or change you have in mind, in one or two sentences."
+      placeholder: |
+        Example: Let me sort my timer cards, or choose in which order they appear on the dashboard.
+    validations:
+      required: true
+
+  - type: textarea
+    id: the-problem
+    attributes:
+      label: "What problem does it solve?"
+      description: |
+        Why do you need this? Describe your situation — a real use case ("when I do X, I have to Y") is worth more than a generic wish.
+      placeholder: |
+        Example: With many timers on the dashboard, my most important one is hard to find, and I have to scroll every time.
+    validations:
+      required: true
+
+  - type: textarea
+    id: how-it-works
+    attributes:
+      label: "How do you imagine it working?"
+      description: "A rough idea is enough — how it should look or behave. A sketch or screenshot is also welcome!"
+      placeholder: |
+        Example: Drag-and-drop like the existing reordering, plus a pin button on each card that moves it to the top.
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra-context
+    attributes:
+      label: "Additional context or examples"
+      description: |
+        Anything else that helps: screenshots or mockups, links to other apps that do this well, or notes on how it fits the offline/no-account design.
+      placeholder: "Optional — examples, screenshots, or links."
+    validations:
+      required: false
