@@ -1,0 +1,42 @@
+name: "❓ Question / Help"
+description: "Ask how something works or get unstuck — سؤال یا درخواست راهنمایی"
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Got a question about using or running CountDown? Ask away — no question is too small. 🙂
+
+        Tip: many answers are already in the [README](https://github.com/karoangus/Countdown#readme) — quick start, PWA install steps, and technical details.
+
+        💡 می‌توانید سؤال را به **فارسی یا انگلیسی** بنویسید، هر کدام که راحت‌تر است.
+
+  - type: textarea
+    id: trying-to-do
+    attributes:
+      label: "What are you trying to do?"
+      description: "Describe your goal — what you want to achieve with the app."
+      placeholder: |
+        Example: I want to install the app on my iPhone so it works without internet.
+    validations:
+      required: true
+
+  - type: textarea
+    id: where-stuck
+    attributes:
+      label: "Where are you stuck, or what's unclear?"
+      description: "What did you try, and what happened (or didn't happen)? If you saw an error message, paste it here."
+      placeholder: |
+        Example: I opened the app in Safari and used the Share button, but I don't see "Add to Home Screen" in the menu.
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra-details
+    attributes:
+      label: "Screenshots or extra details"
+      description: |
+        A screenshot of what you see helps a lot (drag & drop it here). Also useful: your device, browser, and whether you're using the live demo, the installed app, or a local copy.
+      placeholder: "Optional — screenshots, device/browser info, or anything else that helps us understand."
+    validations:
+      required: false
