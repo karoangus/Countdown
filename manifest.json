@@ -4,8 +4,8 @@
   "description": "شمارنده معکوس فارسی با تقویم شمسی",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0d0f1a",
-  "theme_color": "#7c3aed",
+  "background_color": "#10111b",
+  "theme_color": "#10111b",
   "lang": "fa",
   "dir": "rtl",
   "icons": [
@@ -33,5 +33,7 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "id": "./index.html",
+  "scope": "./"
 }

@@ -1,119 +1,223 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="CountDown — شمارنده معکوس فارسی با تقویم شمسی، کاملاً آفلاین" />
-  <meta name="theme-color" content="#0d0f1a" />
-  <title>CountDown — شمارنده معکوس</title>
-  <link rel="icon" href="icon.svg" type="image/svg+xml" />
-  <link rel="icon" href="icon-192.png" sizes="192x192" type="image/png" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="preload" href="fonts/vazirmatn-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="fonts/vazirmatn-arabic-700-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="manifest" href="manifest.json" />
-</head>
-<body>
-
-  <!-- Header -->
-  <header class="app-header">
-    <div class="header-inner">
-      <div class="logo">
-        <span class="logo-icon">⏳</span>
-        <span class="logo-text">CountDown</span>
-      </div>
-      <button class="btn-add" id="btnOpenModal">
-        <span>+</span> تایمر جدید
-      </button>
-    </div>
-  </header>
-
-  <!-- Empty State -->
-  <div class="empty-state" id="emptyState">
-    <div class="empty-icon">🚀</div>
-    <h2>هنوز تایمری نداری!</h2>
-    <p>با دکمه «تایمر جدید» اولین شمارش معکوست رو بساز</p>
-    <button class="btn-add" onclick="document.getElementById('btnOpenModal').click()">+ تایمر جدید</button>
-  </div>
-
-  <!-- Timers Grid -->
-  <main class="timers-grid" id="timersGrid"></main>
-
-  <!-- Modal Overlay -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-      <div class="modal-header">
-        <h2 id="modalTitle">تایمر جدید</h2>
-        <button class="modal-close" id="btnCloseModal" type="button" aria-label="بستن پنجره">✕</button>
-      </div>
-
-      <div class="modal-body">
-        <!-- Title -->
-        <div class="field-group">
-          <label>عنوان رویداد</label>
-          <input type="text" id="inputTitle" placeholder="مثلاً: عید نوروز ۱۴۰۵" maxlength="60" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="لحظه‌های خوب در راه‌اند. شمارش معکوس فارسی با تقویم شمسی؛ سبک، خصوصی و آفلاین."
+    />
+    <meta name="theme-color" content="#10111b" />
+    <meta name="color-scheme" content="dark light" />
+    <title>CountDown — لحظه‌های خوب در راه‌اند</title>
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link
+      rel="preload"
+      href="fonts/vazirmatn-arabic-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="fonts/vazirmatn-arabic-700-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <script src="theme.js"></script>
+    <script src="persian-cal.js" defer></script>
+    <script src="timer-core.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">رفتن به محتوا</a>
+    <header class="app-header">
+      <div class="header-inner">
+        <a class="logo" href="./" aria-label="خانه CountDown"
+          ><span class="logo-icon" aria-hidden="true"
+            ><img src="icon.svg" width="32" height="32" alt="" /></span
+          ><span dir="ltr">countdown<span class="logo-dot">.</span></span></a
+        >
+        <div class="header-actions">
+          <span class="privacy-label"><i></i> فقط روی دستگاه تو</span>
+          <button class="icon-btn" id="btnTheme" aria-label="تغییر پوسته" title="تغییر پوسته">
+            ☀
+          </button>
+          <button class="btn-primary" id="btnOpenModal">
+            <span aria-hidden="true">+</span> تایمر جدید
+          </button>
         </div>
-
-        <!-- Emoji -->
-        <div class="field-group">
-          <label>آیکون (ایموجی)</label>
-          <input type="text" id="inputEmoji" placeholder="🎉" maxlength="4" />
+      </div>
+    </header>
+    <main id="main" class="page">
+      <div id="storageWarning" class="notice" role="alert" hidden>
+        <p id="storageMessage"></p>
+        <button class="btn-quiet" id="btnRecoveryExport">دریافت دادهٔ خام</button>
+        <button class="btn-quiet" id="btnRecoveryReset">شروع دوباره</button>
+      </div>
+      <section class="intro" aria-labelledby="pageTitle">
+        <div>
+          <p class="eyebrow" id="todayLabel">هر ثانیه، یک قدم نزدیک‌تر</p>
+          <h1 id="pageTitle">لحظه‌های خوب <span>در راه‌اند.</span></h1>
+          <p class="intro-description">برای چیزهایی که منتظرشونی، زمان رو بشمار.</p>
         </div>
-
-        <!-- Color -->
-        <div class="field-group">
-          <label>رنگ تایمر</label>
-          <div class="color-swatches" id="colorSwatches">
-            <div class="swatch selected" data-color="#7c3aed" style="background:#7c3aed"></div>
-            <div class="swatch" data-color="#2563eb" style="background:#2563eb"></div>
-            <div class="swatch" data-color="#059669" style="background:#059669"></div>
-            <div class="swatch" data-color="#dc2626" style="background:#dc2626"></div>
-            <div class="swatch" data-color="#d97706" style="background:#d97706"></div>
-            <div class="swatch" data-color="#db2777" style="background:#db2777"></div>
-            <div class="swatch" data-color="#0891b2" style="background:#0891b2"></div>
-            <div class="swatch" data-color="#65a30d" style="background:#65a30d"></div>
+        <div class="intro-art" aria-hidden="true">
+          <div class="orbit"></div>
+          <span
+            ><svg viewBox="0 0 64 80" width="64" height="80" fill="none" aria-hidden="true">
+              <path
+                d="M12 6h40M12 74h40M17 8v13c0 10 15 19 15 19S17 49 17 59v13M47 8v13c0 10-15 19-15 19s15 9 15 19v13"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+              />
+              <path
+                d="M21 20h22c0 7-11 14-11 14s-11-7-11-14ZM21 65h22L32 53Z"
+                fill="currentColor"
+                opacity=".7"
+              /></svg></span
+          ><i class="spark one">✦</i><i class="spark two">✧</i
+          ><small>MAKE EVERY MOMENT COUNT</small>
+        </div>
+      </section>
+      <section class="overview" aria-label="خلاصه رویدادها">
+        <div class="stat">
+          <span class="stat-icon lavender" aria-hidden="true">◷</span>
+          <div><strong id="activeCount">۰</strong><span>در حال شمارش</span></div>
+        </div>
+        <div class="stat">
+          <span class="stat-icon mint" aria-hidden="true">✓</span>
+          <div><strong id="doneCount">۰</strong><span>به لحظه‌ش رسیده</span></div>
+        </div>
+        <div class="next-event">
+          <span class="eyebrow">نزدیک‌ترین لحظه</span
+          ><strong id="nextTitle">یک اتفاق خوب اضافه کن</strong
+          ><span id="nextDate">از همین امروز شروع کن</span>
+        </div>
+      </section>
+      <section class="collection" aria-labelledby="collectionTitle">
+        <div class="section-heading">
+          <h2 id="collectionTitle">لحظه‌های من <span id="totalCount">۰</span></h2>
+          <div class="backup-actions">
+            <button class="btn-quiet" id="btnExport" title="دریافت فایل JSON">↓ پشتیبان‌گیری</button
+            ><button class="btn-quiet" id="btnImport">↑ بازیابی</button
+            ><input type="file" id="importFile" accept=".json,application/json" hidden />
           </div>
         </div>
-
-        <!-- Persian Date Picker -->
-        <div class="field-group">
-          <label>تاریخ شمسی</label>
-          <div class="persian-date-picker" id="persianDatePicker">
-            <!-- Rendered by JS -->
+        <div class="toolbar">
+          <div class="filters" role="group" aria-label="فیلتر تایمرها">
+            <button data-filter="all" aria-pressed="true">همه</button
+            ><button data-filter="active" aria-pressed="false">در حال شمارش</button
+            ><button data-filter="done" aria-pressed="false">رسیده‌ها</button>
+          </div>
+          <div class="view-tools">
+            <label class="search"
+              ><span aria-hidden="true">⌕</span
+              ><input
+                type="search"
+                id="searchInput"
+                placeholder="جست‌وجوی لحظه‌ها…"
+                aria-label="جست‌وجوی تایمر" /></label
+            ><select id="sortOrder" aria-label="مرتب‌سازی">
+              <option value="manual">ترتیب دلخواه</option>
+              <option value="soonest">نزدیک‌ترین</option>
+              <option value="latest">دورترین</option>
+              <option value="title">عنوان</option>
+            </select>
           </div>
         </div>
-
-        <!-- Time -->
-        <div class="field-group">
-          <label>ساعت و دقیقه</label>
-          <div class="time-row">
-            <div class="time-field">
-              <label class="sub-label">ساعت</label>
-              <input type="number" id="inputHour" min="0" max="23" value="0" />
+        <div class="empty-state" id="emptyState">
+          <span class="empty-icon" aria-hidden="true">✧</span>
+          <h3 id="emptyTitle">هر انتظار، یک شروع قشنگه</h3>
+          <p id="emptyDescription">تولد، سفر یا یک قرار مهم؛ اولین لحظه‌ات رو بساز.</p>
+          <button class="btn-primary" id="btnEmptyAdd">+ اولین تایمر من</button>
+        </div>
+        <div class="timers-grid" id="timersGrid"></div>
+        <p class="results-label" id="resultsLabel" role="status"></p>
+      </section>
+      <footer class="page-footer">
+        <span><i></i> بدون حساب کاربری. بدون ردپا. مال خودت.</span
+        ><span>ساخته‌شده برای لحظه‌های مهم <span aria-hidden="true">✦</span></span>
+      </footer>
+    </main>
+    <dialog id="timerDialog" aria-labelledby="modalTitle" aria-describedby="timeHelp">
+      <form id="timerForm" novalidate>
+        <header class="modal-header">
+          <div>
+            <p class="eyebrow">یک انتظار تازه</p>
+            <h2 id="modalTitle">تایمر جدید</h2>
+          </div>
+          <button class="icon-btn" id="btnCloseModal" type="button" aria-label="بستن پنجره">
+            ✕
+          </button>
+        </header>
+        <div class="modal-body">
+          <div class="title-row">
+            <div class="field-group">
+              <label for="inputTitle">عنوان رویداد</label
+              ><input
+                type="text"
+                id="inputTitle"
+                placeholder="مثلاً: سفر به شمال"
+                maxlength="60"
+                required
+                autofocus
+              />
             </div>
-            <div class="time-sep">:</div>
-            <div class="time-field">
-              <label class="sub-label">دقیقه</label>
-              <input type="number" id="inputMinute" min="0" max="59" value="0" />
+            <div class="field-group emoji-field">
+              <label for="inputEmoji">ایموجی</label
+              ><input type="text" id="inputEmoji" placeholder="✨" maxlength="64" />
             </div>
           </div>
+          <fieldset>
+            <legend>رنگ لحظه‌ات</legend>
+            <div class="color-swatches" id="colorSwatches"></div>
+          </fieldset>
+          <div class="field-group">
+            <span class="field-label">انتخاب سریع</span>
+            <div class="quick-dates">
+              <button type="button" data-quick="hour">یک ساعت دیگه</button
+              ><button type="button" data-quick="tomorrow">فردا همین موقع</button
+              ><button type="button" data-quick="week">یک هفته دیگه</button>
+            </div>
+          </div>
+          <fieldset>
+            <legend>تاریخ شمسی</legend>
+            <div class="persian-date-picker" id="persianDatePicker"></div>
+            <p class="date-selection" id="selectedDateLabel"></p>
+          </fieldset>
+          <div class="field-group">
+            <div class="time-row">
+              <div>
+                <label for="inputHour">ساعت</label
+                ><input type="text" inputmode="numeric" id="inputHour" maxlength="2" value="00" />
+              </div>
+              <span aria-hidden="true">:</span>
+              <div>
+                <label for="inputMinute">دقیقه</label
+                ><input type="text" inputmode="numeric" id="inputMinute" maxlength="2" value="00" />
+              </div>
+            </div>
+            <p class="help" id="timeHelp">بر اساس ساعت محلی دستگاه شما</p>
+          </div>
+          <p id="formError" class="form-error" role="alert" hidden></p>
         </div>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn-cancel" id="btnCancelModal">انصراف</button>
-        <button class="btn-save" id="btnSaveTimer">ذخیره تایمر</button>
-      </div>
+        <footer class="modal-footer">
+          <button type="button" class="btn-secondary" id="btnCancelModal">انصراف</button
+          ><button type="submit" class="btn-primary" id="btnSaveTimer">
+            ساخت تایمر <span aria-hidden="true">←</span>
+          </button>
+        </footer>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" hidden>
+      <span id="toastMessage" role="status"></span><button id="btnUndo" hidden>برگردوندن</button
+      ><button id="btnDismissToast" aria-label="بستن پیام">✕</button>
     </div>
-  </div>
-
-  <script src="persian-cal.js"></script>
-  <script src="app.js"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js');
-    }
-  </script>
-</body>
+    <noscript><p class="notice">برای اجرای شمارنده، جاوااسکریپت مرورگر را فعال کنید.</p></noscript>
+  </body>
 </html>

@@ -1,0 +1,15 @@
+{
+  "name": "countdown-persian",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Zero-runtime-dependency Persian countdown PWA",
+  "scripts": {
+    "test": "node --test tests/*.test.cjs",
+    "test:e2e": "playwright test",
+    "test:all": "npm test && npm run test:e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "@axe-core/playwright": "4.11.1"
+  }
+}

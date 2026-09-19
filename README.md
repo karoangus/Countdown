@@ -1,200 +1,120 @@
-<p align="center">
-  <img src="docs/screenshots/banner.png" alt="CountDown — شمارنده معکوس فارسی با تقویم شمسی" width="920" />
-</p>
+<p align="center"><img src="icon.svg" width="72" alt="CountDown" /></p>
+<h1 align="center">CountDown · لحظه‌های خوب در راه‌اند</h1>
+<p align="center">شمارش معکوس فارسی با تقویم شمسی؛ سبک، خصوصی و آفلاین.<br />A small, offline-first Persian countdown. No framework, backend or tracking.</p>
+<p align="center"><a href="https://karoangus.github.io/Countdown/">اجرای برنامه</a> · <a href="#english">English</a> · <a href="CHANGELOG.md">تغییرات نسخهٔ ۲</a></p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/PWA-Installable-7c3aed?style=for-the-badge" alt="PWA" />
-  <img src="https://img.shields.io/badge/Offline-100%25-059669?style=for-the-badge" alt="Offline" />
-  <img src="https://img.shields.io/badge/Calendar-Jalali-2563eb?style=for-the-badge" alt="Jalali" />
-  <img src="https://img.shields.io/badge/JavaScript-Vanilla-f7df1e?style=for-the-badge&logo=javascript&logoColor=000" alt="Vanilla JS" />
-  <img src="https://img.shields.io/badge/UI-RTL_فارسی-db2777?style=for-the-badge" alt="RTL" />
-</p>
-
-<p align="center">
-  <b dir="rtl">شمارنده معکوس برای لحظه‌هایی که مهم‌اند — با تقویم شمسی، بدون اینترنت، بدون حساب کاربری.</b><br/>
-  <i>A fully offline Jalali countdown timer. No build step, no backend, no tracking.</i>
-</p>
-
-<p align="center">
-  <a href="#-پیش‌نمایش">پیش‌نمایش</a> ·
-  <a href="#-قابلیت‌ها">قابلیت‌ها</a> ·
-  <a href="#-شروع-سریع">شروع سریع</a> ·
-  <a href="#-نصب-به‌صورت-اپ-pwa">نصب PWA</a> ·
-  <a href="#english">English</a>
-</p>
-
----
+<p align="center"><img src="docs/screenshots/dashboard.png" alt="داشبورد جدید با خلاصه رویدادها، جست‌وجو و کارت‌های شمارش معکوس" width="960" /></p>
 
 <div dir="rtl">
 
-🌐 Live Demo
-https://karoangus.github.io/Countdown/
-## پیش‌نمایش
+## چه چیزهایی تازه است؟
 
-<p align="center">
-  <img src="docs/screenshots/dashboard.png" alt="داشبورد تایمرها" width="900" />
-  <br/>
-  <sub>کارت‌های شمارش معکوس با رنگ، ایموجی و تاریخ شمسی</sub>
-</p>
+- **داشبورد تازه:** تعداد تایمرهای فعال و رسیده، نزدیک‌ترین رویداد، تم روشن/تیره با پیروی از تنظیمات دستگاه.
+- **مدیریت راحت‌تر:** جست‌وجوی فارسی با یکسان‌سازی «ی/ي»، «ک/ك» و اعداد؛ فیلتر وضعیت و مرتب‌سازی بر اساس زمان یا عنوان.
+- **حذف قابل بازگشت:** دکمهٔ «برگردوندن» تا زمان بستن پیام یا انجام عملیات بعدی در دسترس می‌ماند.
+- **پشتیبان JSON:** دریافت فایل و بازیابی بدون حذف تایمرهای فعلی؛ شناسه‌های تکراری نادیده گرفته می‌شوند و دادهٔ موجود اولویت دارد.
+- **تقویم بهتر:** انتخاب مستقیم ماه/سال، رفتن به امروز و میان‌بر یک ساعت، فردا و یک هفته؛ ورق زدن تقویم تاریخ انتخاب‌شده را عوض نمی‌کند.
+- **ورودی دقیق:** پذیرش اعداد فارسی، عربی و انگلیسی، اعتبارسنجی ساعت و تاریخ، پشتیبانی از ایموجی‌های ترکیبی.
+- **دسترس‌پذیری:** دیالوگ بومی مرورگر، کنترل با صفحه‌کلید، بازگرداندن فوکوس، برچسب‌های خوانا و رعایت کاهش حرکت.
+- **ذخیره‌سازی مطمئن‌تر:** مهاجرت بدون تغییر کلید `cd_timers`، همگام‌سازی پنجره‌ها و جلوگیری از ذخیرهٔ ویرایش قدیمی پس از تغییر در پنجرهٔ دیگر.
 
-<p align="center">
-  <img src="docs/screenshots/modal.png" alt="فرم تایمر جدید با تقویم جلالی" width="900" />
-  <br/>
-  <sub>تقویم جلالی داخلی، انتخاب رنگ و ساعت</sub>
-</p>
+## سبک و روان، نه فقط زیباتر
 
-<p align="center">
-  <img src="docs/screenshots/empty.png" alt="حالت خالی برنامه" width="440" />
-  &nbsp;
-  <img src="docs/screenshots/mobile.png" alt="نمای موبایل" width="280" />
-</p>
+هیچ فریم‌ورک یا کتابخانه‌ای به اجرای برنامه اضافه نشده است. شمارنده در هر تیک فقط متن عددهای تغییرکرده را عوض می‌کند، نه HTML کارت را. با پنهان شدن صفحه یا پایان همهٔ تایمرها، حلقهٔ شمارش متوقف می‌شود و هنگام بازگشت با ساعت واقعی دستگاه همگام می‌شود. انیمیشن دائمی و لایه‌های محو سنگین حذف شده‌اند.
 
----
-
-## قابلیت‌ها
-
-<p align="center">
-  <img src="docs/screenshots/features.png" alt="خلاصه قابلیت‌ها" width="900" />
-</p>
-
-| | قابلیت | توضیح |
-| :---: | :--- | :--- |
-| 📅 | **تقویم شمسی واقعی** | انتخاب تاریخ با تقویم جلالی؛ هفته از شنبه شروع می‌شود و اسفندِ کبیسه درست محاسبه می‌شود |
-| ⏱️ | **شمارش زنده** | روز، ساعت، دقیقه و ثانیه هر یک ثانیه به‌روز می‌شوند |
-| 🎨 | **شخصی‌سازی** | عنوان، ایموجی و ۸ رنگ برای هر رویداد |
-| 🗂️ | **چند تایمر** | ساخت، ویرایش، حذف و جابه‌جایی کارت‌ها |
-| 🎉 | **رویداد رسیده‌** | وقتی زمان بگذرد، کارت به حالت «وقتش رسید!» می‌رود |
-| 💾 | **ذخیرهٔ محلی** | همه چیز در `localStorage` می‌ماند؛ هیچ سروری در کار نیست |
-| 📴 | **۱۰۰٪ آفلاین** | فونت وزیرمتن، آیکون‌ها و منطق برنامه کش می‌شوند |
-| 📱 | **قابل نصب (PWA)** | روی موبایل و دسکتاپ مثل یک اپ واقعی نصب می‌شود |
-| 🔒 | **بدون ردپا** | بدون حساب، بدون آنالیتیکس، بدون درخواست شبکه بعد از بار اول |
-
-### جزئیات کوچک ولی مهم
-
-- اعداد فارسی و رابط کاملاً راست‌چین
-- بستن مودال با `Esc` یا کلیک روی پس‌زمینه
-- مقاوم در برابر دادهٔ خراب در `localStorage`
-- عنوان و ایموجی قبل از رندر HTML escape می‌شوند
-- اصلاح سال ۱۴۰۴ نسبت به چرخهٔ محاسباتی ۲۸۲۰ ساله تا با تقویم رسمی ایران یکی باشد
-
----
+مجموع فایل‌های متنی اجرای برنامه (HTML، CSS، JS و مانیفست) در نسخهٔ ۲ حدود **۲۰٫۴ KiB با gzip** است؛ تست خودکار اجازه نمی‌دهد از **۲۴ KiB** بیشتر شود. فونت‌های محلی و آیکون‌ها جدا از این عدد هستند. دادهٔ نمونه، فونت ایموجی اضافه و تصویر داشبورد در اجرای برنامه بارگیری نمی‌شوند.
 
 ## شروع سریع
 
-برنامه وابستگی، بیلد یا سرور اختصاصی ندارد. همین فایل‌های استاتیک کافی است:
+</div>
 
 ```bash
 git clone https://github.com/karoangus/Countdown.git
 cd Countdown
-python3 -m http.server 8080
+python3 -m http.server 8080 --bind 0.0.0.0
+# http://localhost:8080
 ```
 
-بعد در مرورگر باز کنید:
+<div dir="rtl">
 
-```
-http://localhost:8080
-```
+برای اجرای برنامه **npm، بیلد یا سرور اختصاصی لازم نیست**. فقط برای توسعه و تست‌های مرورگری از npm استفاده می‌شود. مرورگرهای جدید دارای `Intl` با تقویم Persian و `dialog` (مانند Chrome/Edge، Firefox و Safari 15.4+) مورد نیازند. اجرای مستقیم فایل HTML ممکن است، ولی ذخیره‌سازی در `file://` بین مرورگرها یکسان نیست؛ استفاده از وب‌سرور توصیه می‌شود.
 
-> برای استفادهٔ روزمره می‌توانید `index.html` را مستقیم هم باز کنید. برای فعال شدن Service Worker و نصب PWA باید روی `http` یا `https` سرو شود.
+## ساخت اولین لحظه
 
-### ساخت اولین تایمر
+۱. روی «تایمر جدید» بزن، عنوان و در صورت تمایل ایموجی و رنگ را انتخاب کن.<br />
+۲. از میان‌برها یا تقویم شمسی استفاده کن؛ ساعت بر اساس **منطقهٔ زمانی دستگاه** است.<br />
+۳. تایمر را بساز. تاریخ گذشته مجاز است و به‌صورت «وقتش رسید!» نمایش داده می‌شود.
 
-1. روی **تایمر جدید** بزنید
-2. عنوان رویداد را بنویسید (مثلاً «عید نوروز ۱۴۰۶»)
-3. یک ایموجی و رنگ انتخاب کنید
-4. تاریخ شمسی و ساعت را مشخص کنید
-5. **ذخیره تایمر** — شمارش از همان لحظه شروع می‌شود
+جابجایی دستی کارت‌ها در حالت «همه / ترتیب دلخواه / بدون جست‌وجو» فعال است. ترتیب مرتب‌سازی‌شدهٔ نمایشی، ترتیب اصلی ذخیره‌شده را تغییر نمی‌دهد.
 
----
+<p align="center"><img src="docs/screenshots/modal.png" alt="فرم تایمر با تقویم شمسی و میان‌برها" width="420" /> <img src="docs/screenshots/mobile.png" alt="نمای موبایل" width="280" /></p>
 
-## نصب به‌صورت اپ (PWA)
+## اطلاعاتت کجا می‌ماند؟
 
-بعد از یک‌بار باز شدن، برنامه در کش مرورگر می‌ماند و بدون اینترنت کار می‌کند.
+فقط در `localStorage` همین مرورگر؛ نه حساب کاربری، نه سرور، نه رهگیری. **پاک کردن دادهٔ سایت یا مرورگر، تایمرها را حذف می‌کند**؛ گاهی از «پشتیبان‌گیری» استفاده کن. فایل پشتیبان رمزنگاری نشده است، پس آن را خصوصی نگه دار.
 
-| پلتفرم | مسیر نصب |
-| :--- | :--- |
-| **Android / Chrome** | منوی مرورگر ← *Install app* / *Add to Home screen* |
-| **iPhone / iPad** | دکمهٔ Share ← *Add to Home Screen* |
-| **Desktop Chrome / Edge** | آیکون نصب در سمت راست نوار آدرس |
+- حداکثر ۱۰۰۰ تایمر، عنوان ۶۰ کاراکتری، فایل ورودی حداکثر ۲ MiB.
+- بازهٔ رویدادها: سال‌های میلادی ۱۹۰۱ تا پایان ۲۱۹۹؛ داده‌های قدیمی سالم حفظ می‌شوند.
+- فایل خراب یا رکورد نامعتبر در زمان اجرا خودکار بازنویسی نمی‌شود؛ تایمرهای سالم نمایش داده می‌شوند و هشدار بازیابی ظاهر می‌شود.
+- در صورت خرابی، ابتدا «دریافت دادهٔ خام» و سپس در صورت اطمینان «شروع دوباره» را انتخاب کن. شروع دوباره فقط تایمرهای سالمِ نمایش‌داده‌شده را نگه می‌دارد.
+- در خطای فضای ذخیره‌سازی، فرم باز می‌ماند و موفقیت کاذب نمایش داده نمی‌شود.
+- همگام‌سازی بین پنجره‌های همین مرورگر است، نه بین دستگاه‌ها. ذخیره‌های دقیقاً هم‌زمان در چند پنجره تضمین تراکنش پایگاه داده ندارند.
 
-آیکون maskable، `apple-touch-icon` و `theme-color` تیره از قبل تنظیم شده‌اند تا روی صفحهٔ خانگی تمیز دیده شود.
+## تقویم و ساعت
 
----
+تبدیل تاریخ از تقویم استاندارد Persian در `Intl.DateTimeFormat` مرورگر (ICU) استفاده می‌کند؛ بدون الگوریتم تقریبی ۲۸۲۰ ساله یا وصلهٔ ویژهٔ ۱۴۰۴. تبدیل روزهای مدنی در UTC انجام می‌شود و زمان رویداد عمداً محلی است. ساعت ناموجود هنگام تغییر ساعت تابستانی رد می‌شود. تاریخ‌های بسیار دور ممکن است تابع نسخهٔ داده‌های تقویمی مرورگر باشند؛ مرجع پیش‌بینی نجومی نیستند.
 
-## ساختار پروژه
+تایمر به‌صورت timestamp ذخیره می‌شود؛ تغییر منطقهٔ زمانی، لحظهٔ هدف را تغییر نمی‌دهد ولی ساعت نمایش‌داده‌شده محلی می‌شود. شمارش به ساعت دستگاه وابسته است؛ این برنامه زنگ هشدار یا اعلان پس‌زمینه نیست.
 
-```
-Countdown/
-├── index.html          # اسکلت رابط
-├── style.css           # تم تیره + Vazirmatn
-├── app.js              # منطق تایمر، مودال، ذخیره‌سازی
-├── persian-cal.js      # تبدیل جلالی ⇄ میلادی
-├── sw.js               # Service Worker آفلاین
-├── manifest.json       # مانیفست PWA
-├── fonts/              # Vazirmatn (عربی + لاتین، self-hosted)
-└── icon*.png / .svg    # آیکون‌های PWA
-```
+## نصب و استفادهٔ آفلاین
 
-هیچ بسته‌ای از npm نصب نمی‌شود. هیچ CDN خارجی‌ای در runtime صدا زده نمی‌شود.
+پس از اولین بارگذاری موفق روی HTTPS (یا localhost)، فایل‌ها و فونت‌ها برای اجرای آفلاین ذخیره می‌شوند. در Android/Chrome از «Install app»، در iOS از «Share → Add to Home Screen» و در دسکتاپ از دکمهٔ نصب مرورگر استفاده کن.
 
----
+نسخهٔ جدید Service Worker پس از بسته شدن همهٔ پنجره‌های نسخهٔ قبلی فعال می‌شود تا فرم باز، وسط کار تغییر نسخه ندهد. اگر نسخهٔ قدیمی را می‌بینی، با اینترنت برنامه را باز کن، همهٔ پنجره‌های آن را ببند و دوباره اجرا کن. کش سایر برنامه‌های روی همان دامنه پاک نمی‌شود.
 
-## جزئیات فنی
+<p align="center"><img src="docs/screenshots/empty.png" alt="تم روشن و حالت شروع برنامه" width="760" /></p>
 
-**تقویم.** الگوریتم پایه همان `jalaali-js` است؛ با یک اصلاح برای سال‌های ۱۴۰۳ و ۱۴۰۴ تا اسفند با تقویم رسمی ایران هم‌خوان باشد (۱۴۰۳ کبیسه، ۱۴۰۴ غیرکبیسه).
-
-**آفلاین.** `sw.js` همهٔ دارایی‌ها را در کش `countdown-v5` می‌گذارد و با استراتژی cache-first پاسخ می‌دهد. فونت وزیرمتن هم داخل ریپو است.
-
-**امنیت سمت کلاینت.** عنوان و ایموجی کاربر قبل از `innerHTML` escape می‌شوند و رنگ کارت فقط از پالت ثابت پذیرفته می‌شود.
-
-**رابط.** CSS خالص، گرید ریسپانسیو، مودال در دسکتاپ وسط صفحه و در موبایل از پایین. بدون فریم‌ورک.
+## تست و توسعه
 
 </div>
 
----
+```bash
+npm ci
+npm test                         # Node: core, calendar, time zones, size budget
+npx playwright install --with-deps chromium
+npm run test:e2e                  # Desktop + mobile emulation, offline, axe
+npm run test:all
+```
+
+<div dir="rtl">
+
+GitHub Actions همین تست‌ها را برای پول‌ریکوست‌ها اجرا می‌کند. مجموعه شامل ۱۶ تست منطق/تقویم/حجم و ۳۴ سناریوی مرورگری (۱۷ سناریو در دو نمای دسکتاپ و موبایل) است. تبدیل رفت‌وبرگشت **همهٔ روزهای ۱۹۰۱ تا ۲۱۹۹**، کبیسه، مرز انقضا، دادهٔ خراب، خطای ذخیره، تزریق HTML، بازیابی، چند پنجره، آفلاین، ۱۰۰ تایمر، صفحهٔ ۳۲۰ پیکسلی و بررسی axe در هر دو تم پوشش داده شده‌اند. تست موبایل شبیه‌سازی در Chromium است، نه ادعای آزمون روی همهٔ گوشی‌ها یا Safari واقعی.
+
+</div>
 
 ## English
 
-**CountDown** is a tiny Persian countdown app with a real Jalali (Solar Hijri) calendar. It runs entirely in the browser: vanilla HTML/CSS/JS, self-hosted Vazirmatn, and a service worker so it keeps working on a plane.
+CountDown v2 is an offline-first Persian countdown PWA with **zero runtime dependencies** and no build step. It adds a responsive light/dark dashboard, search/filter/sort, undo deletion, validated non-destructive JSON backup import/export, keyboard-friendly native dialogs and a better Jalali picker.
 
-### Why it exists
+- Calendar: native Persian `Intl`/ICU, UTC civil-date conversion, local wall-clock event times.
+- Persistence: existing `cd_timers` format remains compatible. Invalid storage is never overwritten on startup; failed writes preserve the editor. Cross-tab sync detects stale edits (not an atomic multi-tab database).
+- Performance: cached DOM references, changed-number-only ticks, no background ticking, no perpetual animations. A 24 KiB gzip budget covers shipped HTML/CSS/JS/manifest, excluding local fonts/icons.
+- Offline: versioned app-shell cache, scoped cleanup, query-string navigation fallback; updates activate after old tabs close.
+- Limits: 1,000 timers, 2 MiB backup input, target dates in 1901–2199. No background alarms or push notifications.
+- Tests: Node built-ins + development-only Playwright/axe; CI covers desktop and mobile emulation. Screenshots use sample data and a capture-only monochrome emoji font; the app uses native system emoji.
 
-Most countdown apps speak Gregorian. This one lets you pick **1 Farvardin 1406** and actually mean Nowruz — including the official 1403/1404 leap-year correction that a naïve 2820-year arithmetic cycle gets backwards.
+### Files
 
-### Feature recap
+| File | Purpose |
+| --- | --- |
+| `index.html`, `style.css` | Semantic RTL interface, responsive themes |
+| `app.js` | UI, persistence, timer scheduling, dialogs and backup |
+| `timer-core.js` | Pure validation, countdown, import and search helpers |
+| `persian-cal.js` | Persian ↔ Gregorian date conversion |
+| `theme.js` | Apply saved theme before first paint |
+| `sw.js`, `manifest.json` | Offline app shell and installation |
+| `tests/` | Node and browser regression tests |
 
-- Live days / hours / minutes / seconds
-- Built-in Jalali date picker (week starts Saturday)
-- Title, emoji and accent color per timer
-- Edit, delete, reorder
-- Expired state when the moment arrives
-- `localStorage` persistence, no account
-- Installable PWA, fully offline after first load
-- RTL Persian UI, responsive layout
+Run `python3 -m http.server 8080 --bind 0.0.0.0` and open `http://localhost:8080`. npm packages are for tests only; they are never shipped to users.
 
-### Run it
-
-```bash
-git clone https://github.com/karoangus/Countdown.git
-cd Countdown
-python3 -m http.server 8080
-# → http://localhost:8080
-```
-
-### Stack
-
-| Layer | Choice |
-| :--- | :--- |
-| UI | Semantic HTML + CSS custom properties |
-| Logic | Vanilla JS, no bundler |
-| Calendar | Jalali ↔ Gregorian via Julian day |
-| Persistence | `localStorage` (`cd_timers`) |
-| Offline | Service Worker, cache-first |
-| Typeface | Vazirmatn (Arabic + Latin subsets) |
-| Packaging | Web App Manifest + maskable icons |
-
----
-
-<p align="center">
-  <sub>ساخته‌شده برای لحظه‌هایی که باید بشمری‌شان — نوروز، یلدا، تولد، دفاع، پرواز.</sub>
-</p>
+When changing shipped assets, bump the cache version in `sw.js` so existing installations receive a consistent new app shell.
