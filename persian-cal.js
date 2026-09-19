@@ -1,118 +1,126 @@
-/**
- * Persian (Jalali) Calendar Utility
- * Algorithm: jalaali-js (MIT) — industry standard, battle-tested,
- * plus a one-year correction so Esfand matches the official calendar:
- * 1403 was a leap year (Esfand 30 days) and 1404 is not (Esfand 29 days),
- * while the pure 2820-year arithmetic cycle predicts the opposite.
- * Every date in year 1404 therefore sits exactly one day later than the
- * arithmetic mapping, which is what the 1404 branches below compensate.
+/** Solar Hijri conversion using the browser's standard Persian calendar (ICU).
+ * No network, third-party library or year-specific leap-day patches.
+ * UTC is used for civil-date conversion; toDate deliberately uses local time.
  */
-
 const PersianCal = (() => {
-
-  function div(a, b) { return Math.floor(a / b); }
-  function mod(a, b) { return a - Math.floor(a / b) * b; }
-
-  function jalaliToJulian(jy, jm, jd) {
-    let epbase = jy - (jy >= 0 ? 474 : 473);
-    let epyear = 474 + mod(epbase, 2820);
-    return jd
-      + (jm <= 7 ? (jm - 1) * 31 : (jm - 1) * 30 + 6)
-      + Math.floor((epyear * 682 - 110) / 2816)
-      + (epyear - 1) * 365
-      + Math.floor(epbase / 2820) * 1029983
-      + 1948319.5;
+  const MIN_YEAR = 1200;
+  const MAX_YEAR = 1600;
+  const DAY = 86400000;
+  const formatter = new Intl.DateTimeFormat('en-u-ca-persian-nu-latn', {
+    timeZone: 'UTC',
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric'
+  });
+  const starts = new Map();
+  function parts(ms) {
+    const p = Object.fromEntries(formatter.formatToParts(ms).map((p) => [p.type, p.value]));
+    return { y: Number(p.year), m: Number(p.month), d: Number(p.day) };
   }
-
-  function julianToJalali(jd) {
-    let depoch = jd - jalaliToJulian(475, 1, 1);
-    let cycle = div(depoch, 1029983);
-    let cyear = mod(depoch, 1029983);
-    let ycycle;
-    if (cyear === 1029982) {
-      ycycle = 2820;
-    } else {
-      let aux1 = div(cyear, 366);
-      let aux2 = mod(cyear, 366);
-      ycycle = Math.floor((2134 * aux1 + 2816 * aux2 + 2815) / 1028522) + aux1 + 1;
+  function yearStart(year) {
+    if (!Number.isInteger(year) || year < MIN_YEAR || year > MAX_YEAR + 1)
+      throw new RangeError('Unsupported Persian year');
+    if (!starts.has(year)) {
+      let low = Date.UTC(year + 621, 0, 1) / DAY;
+      let high = Date.UTC(year + 622, 0, 1) / DAY;
+      while (low < high) {
+        const mid = Math.floor((low + high) / 2);
+        if (parts(mid * DAY).y < year) low = mid + 1;
+        else high = mid;
+      }
+      starts.set(year, low * DAY);
     }
-    let jy = ycycle + 2820 * cycle + 474;
-    if (jy <= 0) jy--;
-    let jyear = jy;
-    let yday = jd - jalaliToJulian(jyear, 1, 1) + 1;
-    let jm = yday <= 186 ? Math.ceil(yday / 31) : Math.ceil((yday - 6) / 30);
-    let jday = jd - jalaliToJulian(jyear, jm, 1) + 1;
-    return { y: jyear, m: jm, d: jday };
+    return starts.get(year);
   }
-
-  function gregorianToJulian(gy, gm, gd) {
-    return (367 * gy
-      - Math.floor(7 * (gy + Math.floor((gm + 9) / 12)) / 4)
-      - Math.floor(3 * (Math.floor((gy + (gm - 9) / 7) / 100) + 1) / 4)
-      + Math.floor(275 * gm / 9)
-      + gd + 1721028.5);
+  function leapJ(year) {
+    return yearStart(year + 1) - yearStart(year) === 366 * DAY;
   }
-
-  function julianToGregorian(jd) {
-    let z = Math.floor(jd + 0.5);
-    let a = Math.floor((z - 1867216.25) / 36524.25);
-    a = z + 1 + a - Math.floor(a / 4);
-    let b = a + 1524;
-    let c = Math.floor((b - 122.1) / 365.25);
-    let d = Math.floor(365.25 * c);
-    let e = Math.floor((b - d) / 30.6001);
-    let gd = b - d - Math.floor(30.6001 * e);
-    let gm = e < 14 ? e - 1 : e - 13;
-    let gy = gm > 2 ? c - 4716 : c - 4715;
-    return { y: gy, m: gm, d: gd };
+  function daysInMonth(year, month) {
+    if (
+      !Number.isInteger(year) ||
+      year < MIN_YEAR ||
+      year > MAX_YEAR ||
+      !Number.isInteger(month) ||
+      month < 1 ||
+      month > 12
+    )
+      throw new RangeError('Invalid Persian month');
+    return month <= 6 ? 31 : month <= 11 ? 30 : leapJ(year) ? 30 : 29;
   }
-
-  function toJalali(gy, gm, gd) {
-    const j = julianToJalali(gregorianToJulian(gy, gm, gd));
-    if (j.y === 1404) {
-      // Official 1404 runs one day behind the arithmetic mapping:
-      // shift back one Jalali day (borrows into 1403/12/30 at the boundary).
-      if (j.d > 1) return { y: j.y, m: j.m, d: j.d - 1 };
-      if (j.m > 1) return { y: j.y, m: j.m - 1, d: daysInMonth(j.y, j.m - 1) };
-      return { y: 1403, m: 12, d: 30 };
-    }
-    return j;
+  function toJalali(y, m, d) {
+    const date = new Date(Date.UTC(y, m - 1, d));
+    if (
+      ![y, m, d].every(Number.isInteger) ||
+      date.getUTCFullYear() !== y ||
+      date.getUTCMonth() !== m - 1 ||
+      date.getUTCDate() !== d
+    )
+      throw new RangeError('Invalid Gregorian date');
+    return parts(date.getTime());
   }
-
-  function toGregorian(jy, jm, jd) {
-    // Official 1404 runs one day ahead of the arithmetic mapping.
-    const shift = jy === 1404 ? 1 : 0;
-    return julianToGregorian(jalaliToJulian(jy, jm, jd) + shift);
+  function toGregorian(y, m, d) {
+    if (!Number.isInteger(d) || d < 1 || d > daysInMonth(y, m))
+      throw new RangeError('Invalid Persian day');
+    const offset = m <= 7 ? (m - 1) * 31 : 186 + (m - 7) * 30;
+    const date = new Date(yearStart(y) + (offset + d - 1) * DAY);
+    return { y: date.getUTCFullYear(), m: date.getUTCMonth() + 1, d: date.getUTCDate() };
   }
-
-  function leapJ(jy) {
-    if (jy === 1403) return true;   // official: Esfand 1403 had 30 days
-    if (jy === 1404) return false;  // official: Esfand 1404 has 29 days
-    return jalaliToJulian(jy + 1, 1, 1) - jalaliToJulian(jy, 1, 1) === 366;
+  function toDate(y, m, d, hour = 0, minute = 0) {
+    if (
+      !Number.isInteger(hour) ||
+      hour < 0 ||
+      hour > 23 ||
+      !Number.isInteger(minute) ||
+      minute < 0 ||
+      minute > 59
+    )
+      throw new RangeError('Invalid time');
+    const g = toGregorian(y, m, d);
+    const date = new Date(g.y, g.m - 1, g.d, hour, minute);
+    // Reject nonexistent wall-clock times during daylight-saving transitions.
+    if (
+      date.getFullYear() !== g.y ||
+      date.getMonth() !== g.m - 1 ||
+      date.getDate() !== g.d ||
+      date.getHours() !== hour ||
+      date.getMinutes() !== minute
+    )
+      throw new RangeError('Nonexistent local time');
+    return date;
   }
-
-  function daysInMonth(jy, jm) {
-    if (jm <= 6)  return 31;
-    if (jm <= 11) return 30;
-    return leapJ(jy) ? 30 : 29;
+  function fromDate(date) {
+    return toJalali(date.getFullYear(), date.getMonth() + 1, date.getDate());
   }
-
   function today() {
-    const now = new Date();
-    return toJalali(now.getFullYear(), now.getMonth() + 1, now.getDate());
+    return fromDate(new Date());
   }
-
-  function toDate(jy, jm, jd, h, min) {
-    const g = toGregorian(jy, jm, jd);
-    return new Date(g.y, g.m - 1, g.d, h || 0, min || 0, 0, 0);
-  }
-
-  function fromDate(d) {
-    return toJalali(d.getFullYear(), d.getMonth() + 1, d.getDate());
-  }
-
-  const MONTH_NAMES = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
-  const DAY_NAMES   = ['ش','ی','د','س','چ','پ','ج'];
-
-  return { toJalali, toGregorian, toDate, fromDate, today, daysInMonth, MONTH_NAMES, DAY_NAMES, leapJ };
+  const MONTH_NAMES = [
+    'فروردین',
+    'اردیبهشت',
+    'خرداد',
+    'تیر',
+    'مرداد',
+    'شهریور',
+    'مهر',
+    'آبان',
+    'آذر',
+    'دی',
+    'بهمن',
+    'اسفند'
+  ];
+  const DAY_NAMES = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'];
+  return {
+    MIN_YEAR,
+    MAX_YEAR,
+    toJalali,
+    toGregorian,
+    toDate,
+    fromDate,
+    today,
+    daysInMonth,
+    MONTH_NAMES,
+    DAY_NAMES,
+    leapJ
+  };
 })();
+if (typeof module !== 'undefined') module.exports = PersianCal;
