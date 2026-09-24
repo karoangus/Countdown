@@ -6,6 +6,7 @@
 <p align="center">
   <a href="https://github.com/karoangus/Countdown/actions/workflows/test.yml"><img src="https://github.com/karoangus/Countdown/actions/workflows/test.yml/badge.svg" alt="وضعیت CI" /></a>
   <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.0.0-7c3aed" alt="نسخه 2.0.0" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="لایسنس MIT" /></a>
   <a href="#سبک-و-روان-نه-فقط-زیباتر"><img src="https://img.shields.io/badge/runtime-20.4%20KiB%20gzip-059669" alt="حجم اجرا ۲۰٫۴ کیلوبایت با gzip" /></a>
   <a href="#english"><img src="https://img.shields.io/badge/dependencies-0-2563eb" alt="بدون وابستگی runtime" /></a>
   <a href="#نصب-و-استفادهٔ-آفلاین"><img src="https://img.shields.io/badge/PWA-offline--first-d97706" alt="PWA آفلاین" /></a>
@@ -215,7 +216,7 @@ GitHub Actions (ورک‌فلوی `Tests`) همین تست‌ها را برای 
 | `theme.js` | اعمال پوسته پیش از اولین paint |
 | `sw.js` | سرویس‌ورکر آفلاین با پاک‌سازی محدود به پیشوند خود |
 | `manifest.json` | هویت PWA و آیکون‌ها |
-| `fonts/` | زیرمجموعهٔ فونت Vazirmatn (لایسنس OFL 1.1) |
+| `fonts/` | زیرمجموعهٔ فونت Vazirmatn به‌همراه رونوشت لایسنس (`OFL.txt`) |
 | `docs/screenshots/` | تصاویر همین README |
 | `tests/` | تست‌های Node و Playwright |
 | `.github/` | قالب‌های issue و ورک‌فلوی CI |
@@ -227,8 +228,8 @@ GitHub Actions (ورک‌فلوی `Tests`) همین تست‌ها را برای 
 
 ## لایسنس و یادکرد
 
-- این مخزن در حال حاضر فایل `LICENSE` جداگانه ندارد؛ تا انتخاب لایسنس، کد به‌صورت پیش‌فرض «همهٔ حقوق محفوظ» است. فونت bundled نیز شرایط خود را دارد (پایین).
-- فونت رابط، [Vazirmatn](https://github.com/rastikerdar/vazirmatn) اثر صابر راستی‌کردار و نویسندگان پروژهٔ وزیرمتن است و تحت **SIL Open Font License 1.1** توزیع می‌شود؛ فایل‌های `fonts/` زیرمجموعهٔ بدون تغییر همین فونت‌اند.
+- کد این پروژه تحت لایسنس **MIT** است (فایل [LICENSE](LICENSE)).
+- فونت رابط، [Vazirmatn](https://github.com/rastikerdar/vazirmatn) اثر صابر راستی‌کردار و نویسندگان پروژهٔ وزیرمتن است و تحت **SIL Open Font License 1.1** توزیع می‌شود؛ فایل‌های `fonts/` زیرمجموعهٔ بدون تغییر همین فونت‌اند و رونوشت لایسنس آن‌ها در `fonts/OFL.txt` همراه شده است.
 - تصاویر `docs/screenshots` با دادهٔ نمونه و فونت ایموجی تک‌رنگِ فقط-برای-ضبط ساخته شده‌اند؛ خود برنامه از ایموجی بومی دستگاه استفاده می‌کند.
 
 </div>
@@ -269,7 +270,7 @@ PWA install and offline use need a secure context (HTTPS or localhost).
 | `persian-cal.js` | Persian ↔ Gregorian date conversion via ICU |
 | `theme.js` | Apply saved theme before first paint |
 | `sw.js`, `manifest.json` | Offline app shell and installation |
-| `fonts/` | Self-hosted Vazirmatn subset (SIL OFL 1.1) |
+| `fonts/` | Self-hosted Vazirmatn subset (SIL OFL 1.1, license copy in `fonts/OFL.txt`) |
 | `tests/`, `playwright.config.cjs` | Node and browser regression tests |
 | `.github/` | Issue templates and the `Tests` CI workflow |
 | `docs/screenshots/` | Imagery used by this README |
@@ -280,7 +281,7 @@ When changing shipped assets, bump the cache version in `sw.js` so existing inst
 
 ### License & attribution
 
-The repository currently ships no `LICENSE` file; until one is chosen the code is all-rights-reserved by default. The bundled interface font is **Vazirmatn** by Saber Rastikerdar and the Vazirmatn Project Authors, licensed under the **SIL Open Font License 1.1** (<https://github.com/rastikerdar/vazirmatn>); `fonts/` contains unmodified subsets.
+The source code is licensed under the **MIT License** (see [`LICENSE`](LICENSE)). The bundled interface font is **Vazirmatn** by Saber Rastikerdar and the Vazirmatn Project Authors, licensed under the **SIL Open Font License 1.1** (<https://github.com/rastikerdar/vazirmatn>); `fonts/` contains unmodified subsets and a copy of the font license in `fonts/OFL.txt`.
 
 ### Contributing
 
