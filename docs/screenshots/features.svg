@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="280" viewBox="0 0 1400 280" role="img" aria-label="ویژگی‌های CountDown">
+  <g font-family="Vazirmatn, 'Segoe UI', Tahoma, sans-serif" direction="rtl">
+    <rect x="1052" y="20" width="328" height="240" rx="20" fill="#141625" stroke="#262a3f"/>
+    <text x="1216" y="98" font-size="40" text-anchor="middle">🗓️</text>
+    <text x="1216" y="150" font-size="24" font-weight="700" fill="#e8e9f2" text-anchor="middle">تقویم شمسی بومی</text>
+    <text x="1216" y="190" font-size="15" fill="#9aa0b4" text-anchor="middle">انتخاب تاریخ جلالی با ICU مرورگر</text>
+    <text x="1216" y="218" font-size="15" fill="#9aa0b4" text-anchor="middle">بدون کتابخانه و بدون وصلهٔ سال خاص</text>
+
+    <rect x="708" y="20" width="328" height="240" rx="20" fill="#141625" stroke="#262a3f"/>
+    <text x="872" y="98" font-size="40" text-anchor="middle">⚡</text>
+    <text x="872" y="150" font-size="24" font-weight="700" fill="#e8e9f2" text-anchor="middle">شمارش زندهٔ سبک</text>
+    <text x="872" y="190" font-size="15" fill="#9aa0b4" text-anchor="middle">فقط عددهای تغییرکرده به‌روز می‌شوند</text>
+    <text x="872" y="218" font-size="15" fill="#9aa0b4" text-anchor="middle">بدون تیکِ پس‌زمینه و انیمیشن دائمی</text>
+
+    <rect x="364" y="20" width="328" height="240" rx="20" fill="#141625" stroke="#262a3f"/>
+    <text x="528" y="98" font-size="40" text-anchor="middle">🎨</text>
+    <text x="528" y="150" font-size="24" font-weight="700" fill="#e8e9f2" text-anchor="middle">شخصی‌سازی</text>
+    <text x="528" y="190" font-size="15" fill="#9aa0b4" text-anchor="middle">رنگ، ایموجی و عنوان برای هر لحظه</text>
+    <text x="528" y="218" font-size="15" fill="#9aa0b4" text-anchor="middle">تم روشن و تیره با ترجیح دستگاه</text>
+
+    <rect x="20" y="20" width="328" height="240" rx="20" fill="#141625" stroke="#262a3f"/>
+    <text x="184" y="98" font-size="40" text-anchor="middle">🔒</text>
+    <text x="184" y="150" font-size="24" font-weight="700" fill="#e8e9f2" text-anchor="middle">خصوصی و آفلاین</text>
+    <text x="184" y="190" font-size="15" fill="#9aa0b4" text-anchor="middle">داده فقط در localStorage دستگاه تو</text>
+    <text x="184" y="218" font-size="15" fill="#9aa0b4" text-anchor="middle">نصب به‌صورت PWA و اجرای ۱۰۰٪ آفلاین</text>
+  </g>
+</svg>
